@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170910224644) do
+ActiveRecord::Schema.define(version: 20170911051013) do
 
   create_table "subscriptions", force: :cascade do |t|
     t.integer "user_id"
@@ -23,6 +23,29 @@ ActiveRecord::Schema.define(version: 20170910224644) do
     t.datetime "updated_at", null: false
     t.index ["subscription_plan_id"], name: "index_subscriptions_on_subscription_plan_id"
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
+  end
+
+  create_table "unity_subscription_plans", force: :cascade do |t|
+    t.string "gateway_name", null: false
+    t.string "period", null: false
+    t.string "price", null: false
+    t.integer "rank", null: false
+    t.string "group_enrollment_add_on_price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "unity_subscriptions", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "subscription_plan_id"
+    t.string "gateway_id"
+    t.string "gateway_status"
+    t.datetime "trial_ends_at"
+    t.boolean "group_enrolled"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subscription_plan_id"], name: "index_unity_subscriptions_on_subscription_plan_id"
+    t.index ["user_id"], name: "index_unity_subscriptions_on_user_id"
   end
 
 end
