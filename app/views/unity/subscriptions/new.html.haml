@@ -1,0 +1,36 @@
+.payment
+  .payment__forms
+    = form_for :subscription,
+      url: [:subscription],
+      method: :post,
+      html: { id: "braintree-payment-form",
+      "data-validate": "data-validate",
+      "no-validate": "no-validate" } do |form|
+      /#braintree-token{ "data-braintree-token": @subscription_info_component.braintree_token }
+      %h3.payment__title  Billing Address
+      .payment__form.form.form--small
+        = render "billing_address_form"
+
+      /%h3.payment__title Your payment method
+
+      /.payment__form.form.form--small.loading-spinner#payment-form
+      /  = hidden_field_tag :payment_method_nonce
+      /  = render "payment_method/card_details"
+
+      /  .payment__label
+      /    %label.checkbox.payment__checkbox
+      /      %input{ name: "newsletter", type: "checkbox" }
+      /      %span.checkbox__indicator
+      /    .checkbox__label.grey
+      /      Yes, I'd like to receive the Bethel.TV newsletter
+
+      /  .payment__copy.grey
+      /    By clicking "COMPLETE PURCHASE", you agree to Bethel's
+      /    = link_to "terms of service", "#", class: "payment__link"
+
+      /  = form.submit "Complete Purchase",
+      /    class: "black-button payment__button",
+      /    data: { disable_with: "Please Wait..." }
+
+  /.payment__summary.summary
+  /  = render "summary", subscription_info_component: @subscription_info_component

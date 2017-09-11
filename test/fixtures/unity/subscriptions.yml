@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  gateway_id: MyString
+  gateway_status: MyString
+  trial_ends_at: 2017-09-10 17:49:05
+  group_enrolled: false
+
+two:
+  gateway_id: MyString
+  gateway_status: MyString
+  trial_ends_at: 2017-09-10 17:49:05
+  group_enrolled: false
