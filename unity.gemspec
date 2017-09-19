@@ -15,6 +15,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["spec/**/*"]
 
+  s.add_runtime_dependency "braintree", "~> 2.78"
   s.add_dependency "rails", "~> 5.1"
   s.add_dependency "haml", "~> 5.0"
 

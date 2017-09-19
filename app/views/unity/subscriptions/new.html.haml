@@ -1,36 +1,72 @@
-.payment
-  .payment__forms
-    = form_for :subscription,
-      url: [:subscription],
-      method: :post,
-      html: { id: "braintree-payment-form",
-      "data-validate": "data-validate",
-      "no-validate": "no-validate" } do |form|
-      /#braintree-token{ "data-braintree-token": @subscription_info_component.braintree_token }
-      %h3.payment__title  Billing Address
-      .payment__form.form.form--small
-        = render "billing_address_form"
+%div.align-center.align-vertical.row.forms
+  %div.column.small-12.medium-10.wrapper
+    %div#new-subscription.row.align-center.align-vertical
+      %div.column.small-12
+        %div.small-12.columns
+          %h2.small-12.columns.external-header
+            Payment information
 
-      /%h3.payment__title Your payment method
+        %div
+          = form_for :subscription,
+            url: [:subscription],
+            method: :create,
+            html: { id: "braintree-payment-form",
+            "data-validate": "data-validate",
+            "no-validate": "no-validate" } do |f|
+            = hidden_field_tag :authenticity_token, form_authenticity_token
+            = hidden_field_tag :payment_method_nonce
+            %div.small-12.columns
+              %div.small-12.columns
+                %label Billing cycle
+              %div.small-12.columns
+                %div.monthly-radio.small-6.column.radio.active
+                  = radio_button_tag :plan_id, 'monthly_subscription', checked: true
+                  = label_tag(:plan_monthly, 'Monthly - $15 every month')
+                %div.yearly-radio.small-6.column.radio
+                  = radio_button_tag :plan_id, 'yearly'
+                  = label_tag(:plan_yearly, 'Yearly - $120 once a year')
 
-      /.payment__form.form.form--small.loading-spinner#payment-form
-      /  = hidden_field_tag :payment_method_nonce
-      /  = render "payment_method/card_details"
+            .form__field
+              .form__card-field
+                %label.form__label Card Number
+                .form__input#card-number
 
-      /  .payment__label
-      /    %label.checkbox.payment__checkbox
-      /      %input{ name: "newsletter", type: "checkbox" }
-      /      %span.checkbox__indicator
-      /    .checkbox__label.grey
-      /      Yes, I'd like to receive the Bethel.TV newsletter
+              .flex-row
+                .flex-col.form__one-third-field
+                  .form__input#card-expire-month
+                .flex-col.form__one-third-field
+                  .form__input#card-expire-year
+                .flex-col.form__one-third-field
+                  .form__input#cvv-field{ "data-field-name": "CVV" }
 
-      /  .payment__copy.grey
-      /    By clicking "COMPLETE PURCHASE", you agree to Bethel's
-      /    = link_to "terms of service", "#", class: "payment__link"
+                %div.small-12.columns
+                  %div.small-12.columns= f.submit 'Get started', id: 'stripe-submit', data: { disable_with: "Please wait..." }
 
-      /  = form.submit "Complete Purchase",
-      /    class: "black-button payment__button",
-      /    data: { disable_with: "Please Wait..." }
+                  %div.small-12.columns.instructions
+                    Your card will be charged upon submitting this form and begin your subscription.
 
-  /.payment__summary.summary
-  /  = render "summary", subscription_info_component: @subscription_info_component
+%script{ src: "https://js.braintreegateway.com/js/braintree-2.32.1.min.js" }
+:javascript
+  braintree.setup('#{@braintree_token}', 'custom', {
+    id: "braintree-payment-form",
+    hostedFields: {
+      styles: {
+        'input': {
+          'color': '#474D51',
+          'font-size': '14px'
+        }
+      },
+      number: {
+        selector: '#card-number'
+      },
+      expirationMonth: {
+        selector: '#card-expire-month'
+      },
+      expirationYear: {
+        selector: '#card-expire-year'
+      },
+      cvv: {
+        selector: '#cvv-field'
+      }
+    }
+  });
