@@ -1,4 +1,6 @@
 Unity::Engine.routes.draw do
   resource :subscription,
-    only: [:new, :create]
+    except: [:delete]
+  # link_to not working for destroy path
+  get "/subscription/delete", to: "subscriptions#destroy"
 end
