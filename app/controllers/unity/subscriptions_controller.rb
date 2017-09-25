@@ -1,7 +1,8 @@
 module Unity
   class SubscriptionsController < ApplicationController
     def new
-      @braintree_token = GatewayActions.generate_client_token
+      byebug
+      @token = Unity.generate_braintree_token
     end
 
     def edit
@@ -18,8 +19,8 @@ module Unity
     end
 
     def destroy
-      result = Unity::GatewayActions.cancel_subscription(
-        Unity::Subscription.find_by(user_id: current_user.id)
+      result = Unity.cancel_braintree_subscription(
+        Subscription.find_by(user_id: current_user.id)
       )
 
       if result.success?
@@ -38,10 +39,10 @@ module Unity
     def create_subscription
       # TODO: raise error if host app doesn't provide current_user
       # need to add gateway_customer_id to user model in host app
-      Unity::GatewayActions.create_customer_subscription(
+      Unity.create_braintree_subscription(
         user: current_user,
         params: create_params,
-      ).execute
+      )
     end
   end
 end

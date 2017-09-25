@@ -77,7 +77,7 @@ class Unity
         # which will be required and then used.  Returns nil.
         #
         #   Unity.plugin PluginModule
-        #   Unity.plugin :braintree
+        #   Unity.plugin :braintree_gateway
         def plugin(plugin, *args, &block)
           # raise UnityError, "Cannot add a plugin to a frozen Unity class" if frozen?
           plugin = UnityPlugins.load_plugin(plugin) if plugin.is_a?(Symbol)
@@ -88,15 +88,6 @@ class Unity
           nil
         end
 
-        # Convenience method to set braintree configurations.
-        def configure_braintree(environment:, merchant_id:, public_key:, private_key:)
-          raise UnityError, "Plugin `braintree_gateway` did not register itself correclty in Unity::UnityPlugins" unless plugins[:braintree_gateway]
-          UnityPlugins::BraintreeGateway::Configuration.environment = environment
-          UnityPlugins::BraintreeGateway::Configuration.merchant_id = merchant_id
-          UnityPlugins::BraintreeGateway::Configuration.public_key = public_key
-          UnityPlugins::BraintreeGateway::Configuration.private_key = private_key
-        end
-
         # Get hash of registered plugins
         def plugins
           UnityPlugins.instance_variable_get(:@plugins)
@@ -105,8 +96,6 @@ class Unity
 
       # Instance methods for the Unity class.
       module InstanceMethods
-        def initialize
-        end
       end
     end
   end
