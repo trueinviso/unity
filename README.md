@@ -1,5 +1,8 @@
 # Unity
-Short description and motivation.
+A Ruby on Rails Engine to quickly add subscription support to your application.
+This is a work in progress and will start off supporting Braintree.  I will
+also be adding support for Stripe and possibly other payment processors.  In the
+future this may also expand to support transactions.
 
 ## Usage
 How to use my plugin.
