@@ -6,13 +6,21 @@ class Unity
 
         def create_customer_subscription(user, params)
           SubscriptionCreator.new(
-            user, params
+            user: user,
+            params: params,
           ).execute
         end
 
         def cancel_subscription(subscription)
           SubscriptionCanceller.new(
-            subscription
+            subscription,
+          ).execute
+        end
+
+        def update_subscription(subscription, params)
+          SubscriptionUpdater.new(
+            subscription: subscription,
+            params: params,
           ).execute
         end
 
