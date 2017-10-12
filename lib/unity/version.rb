@@ -1,4 +1,4 @@
-class Unity
+module Unity
   # The major version of Unity, updated only for major changes that are
   # likely to require modification to Unity apps
   UnityMajorVersion = 0

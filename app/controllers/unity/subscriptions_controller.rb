@@ -1,8 +1,7 @@
 module Unity
   class SubscriptionsController < ApplicationController
     def new
-      byebug
-      @token = Unity.generate_braintree_token
+      @token = BraintreeGateway::Actions.generate_client_token
     end
 
     def edit
@@ -39,7 +38,7 @@ module Unity
     def create_subscription
       # TODO: raise error if host app doesn't provide current_user
       # need to add gateway_customer_id to user model in host app
-      Unity.create_braintree_subscription(
+      BraintreeGateway::Actions.create_customer_subscription(
         user: current_user,
         params: create_params,
       )

@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  mount Unity::Engine => "/subscription"
+  mount Unity::Engine => "/"
 end
