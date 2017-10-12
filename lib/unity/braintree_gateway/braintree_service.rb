@@ -20,6 +20,14 @@ module Unity
         ::Braintree::Customer.find(gateway_id)
       end
 
+      def find_subscription(gateway_id)
+        ::Braintree::Subscription.find(gateway_id)
+      end
+
+      def braintree_plans
+        ::Braintree::Plan.all
+      end
+
       def generate_client_token
         ::Braintree::ClientToken.generate(
           merchant_account_id: Configuration.merchant_id

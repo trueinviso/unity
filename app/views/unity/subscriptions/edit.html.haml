@@ -1,1 +1,21 @@
+%div.small-12.columns
+  %div.small-12.columns
+    %label Billing cycle
+  %div.small-12.columns
+  = form_for :subscription,
+    url: [:subscription],
+    method: :put,
+    html: { id: "braintree-payment-form",
+    "data-validate": "data-validate",
+    "no-validate": "no-validate" } do |form|
+    %div.small-12.columns
+    %div.monthly-radio.small-6.column.radio.active
+      = radio_button_tag :plan_id, 'monthly_subscription', checked: true
+      = label_tag(:plan_monthly, 'Monthly - $15 every month')
+    %div.yearly-radio.small-6.column.radio
+      = radio_button_tag :plan_id, 'yearly'
+      = label_tag(:plan_yearly, 'Yearly - $120 once a year')
+    %div
+      = form.submit "Update Subscription"
+
 = link_to "Cancel Subscription", [:subscription, :delete]

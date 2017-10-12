@@ -9,6 +9,9 @@ module Unity
     autoload :Configuration,"unity/braintree_gateway/configuration"
     autoload :CreateSubscriptionPayload,"unity/braintree_gateway/create_subscription_payload"
     autoload :SubscriptionCanceller,"unity/braintree_gateway/subscription_canceller"
+    autoload :SubscriptionUpdater,"unity/braintree_gateway/subscription_updater"
+    autoload :UpdateSubscriptionPayload,"unity/braintree_gateway/update_subscription_payload"
+    autoload :Plan,"unity/braintree_gateway/plan"
     autoload :Actions,"unity/braintree_gateway/actions"
 
     # Convenience method to set braintree configurations.
