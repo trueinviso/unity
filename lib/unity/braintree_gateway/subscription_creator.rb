@@ -1,11 +1,17 @@
 module Unity
   module BraintreeGateway
     class SubscriptionCreator
-      attr_reader :user, :params, :braintree_service, :customer_strategy, :bt_customer
+      attr_reader :user
+      attr_reader :params
+      attr_reader :discount_payload
+      attr_reader :braintree_service
+      attr_reader :customer_strategy
+      attr_reader :bt_customer
 
-      def initialize(user:, params:, braintree_service: BraintreeService)
+      def initialize(user:, params:, discount_payload: {}, braintree_service: BraintreeService)
         @user = user
         @params = params
+        @discount_payload = discount_payload
         @braintree_service = braintree_service
         @customer_strategy = CustomerCreator.new(user: user, params: params)
       end
@@ -36,7 +42,9 @@ module Unity
 
       def build_create_subscription_payload
         CreateSubscriptionPayload.new(
-          user, params, bt_customer: bt_customer
+          params: params,
+          bt_customer: bt_customer,
+          discount_payload: discount_payload,
         ).build
       end
 

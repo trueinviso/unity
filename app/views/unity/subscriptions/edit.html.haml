@@ -13,7 +13,7 @@
       = radio_button_tag :plan_id, 'monthly_subscription', checked: true
       = label_tag(:plan_monthly, 'Monthly - $15 every month')
     %div.yearly-radio.small-6.column.radio
-      = radio_button_tag :plan_id, 'yearly'
+      = radio_button_tag :plan_id, 'yearly_subscription'
       = label_tag(:plan_yearly, 'Yearly - $120 once a year')
     %div
       = form.submit "Update Subscription"

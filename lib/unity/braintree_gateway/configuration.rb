@@ -19,6 +19,8 @@ module Unity
         plans = ::Braintree::Plan.all
 
         plans.each do |plan|
+          local_plan = SubscriptionPlan.find_by(gateway_id: plan.id)
+          next if local_plan.present?
           local_plan = SubscriptionPlan.new
           local_plan.gateway_id = plan.id
           local_plan.price = plan.price.to_s

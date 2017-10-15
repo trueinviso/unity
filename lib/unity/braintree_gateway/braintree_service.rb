@@ -20,6 +20,10 @@ module Unity
         ::Braintree::Customer.find(gateway_id)
       end
 
+      def cancel_subscription(gateway_id)
+        ::Braintree::Subscription.cancel(gateway_id)
+      end
+
       def find_subscription(gateway_id)
         ::Braintree::Subscription.find(gateway_id)
       end
