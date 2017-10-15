@@ -17,7 +17,10 @@ module Unity
 
       def find_customer(gateway_id)
         # TODO: This will probably raise a braintree not found error
-        ::Braintree::Customer.find(gateway_id)
+        result = ::Braintree::Customer.find(gateway_id)
+        result.define_singleton_method(:success?) { true }
+        result.define_singleton_method(:customer) { self }
+        result
       end
 
       def cancel_subscription(gateway_id)

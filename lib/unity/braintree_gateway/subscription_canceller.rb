@@ -33,7 +33,7 @@ module Unity
       end
 
       def cancel_local_subscription
-        subscription.update!(gateway_status: "Canceled")
+        subscription.update!(gateway_status: :canceled)
       end
 
       # Set subscription to finish at end of billing cycle

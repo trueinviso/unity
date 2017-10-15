@@ -54,11 +54,12 @@ module Unity
         SwapBillingCycle.for(swap_builder)
       end
 
-      SwapBuilder = Struct.new(:bt_subscription, :user, :params, :new_plan, :current_plan)
+      SwapBuilder = Struct.new(:bt_subscription, :subscription, :user, :params, :new_plan, :current_plan)
 
       def swap_builder
         SwapBuilder.new(
           bt_subscription,
+          subscription,
           user,
           params,
           new_plan,

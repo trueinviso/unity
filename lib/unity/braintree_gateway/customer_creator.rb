@@ -17,7 +17,7 @@ module Unity
 
       def get_customer
         result = find_customer if user.gateway_customer_id.present?
-        result = create_customer unless result.try(:success?)
+        result = create_customer unless result&.success?
         update_local_user(result) if result.success?
         result
       end
