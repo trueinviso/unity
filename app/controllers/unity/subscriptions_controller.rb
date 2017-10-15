@@ -30,9 +30,7 @@ module Unity
     end
 
     def destroy
-      result = Unity.cancel_braintree_subscription(
-        Subscription.find_by(user_id: current_user.id)
-      )
+      result = cancel_subscription
 
       if result.success?
         redirect_to [:root]
@@ -70,5 +68,12 @@ module Unity
         update_params,
       )
     end
+
+    def cancel_subscription
+      BraintreeGateway::Actions.cancel_subscription(
+        Subscription.find_by(user_id: current_user.id),
+      )
+    end
+
   end
 end
