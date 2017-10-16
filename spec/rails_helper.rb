@@ -6,6 +6,10 @@ require File.expand_path('../../spec/dummy/config/environment.rb', __FILE__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
+require 'webvalve/rspec'
+# Include files for webvalve to mock web requests
+Dir[Rails.root.join("../../webvalve/**/*.rb")].each { |f| require f }
+require File.expand_path('../../config/webvalve.rb', __FILE__)
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in

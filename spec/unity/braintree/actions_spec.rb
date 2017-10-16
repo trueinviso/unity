@@ -1,7 +1,7 @@
 require "rails_helper"
 
 module Unity
-  module Braintree
+  module BraintreeGateway
     RSpec.describe Actions do
       context ".create_subscription" do
         before { @user = create_user }
@@ -12,13 +12,15 @@ module Unity
             plan_id: "basic_monthly_subscription",
           }
           described_class.create_customer_subscription(@user, params)
-          assert_equal @user, Unity::Subscription.first.user
+          assert_equal @user, ::Unity::Subscription.first.user
         end
       end
 
       def create_user
-        user_class = Object.const_set("User", Class.new(ActiveRecord::Base))
-        user_class.table_name = :users
+        user_class = Object.const_set("User", Class.new(ActiveRecord::Base) do
+          self.table_name = "users"
+          attr_accessor :gateway_customer_id
+        end)
         user_class.create!
       end
     end
