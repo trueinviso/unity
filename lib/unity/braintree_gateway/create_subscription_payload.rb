@@ -7,7 +7,7 @@ module Unity
       attr_reader :discount_payload
       attr_reader :braintree_service
 
-      def initialize(params: params, bt_customer:, discount_payload: { discounts: {} }, braintree_service: BraintreeService)
+      def initialize(params:, bt_customer:, discount_payload: { discounts: {} }, braintree_service: BraintreeService)
         @params = params
         @bt_customer = bt_customer
         @discount_payload = discount_payload

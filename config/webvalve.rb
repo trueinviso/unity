@@ -6,4 +6,4 @@
 # # whitelist urls
 #
 # WebValve.whitelist_url 'https://example.com'
-WebValve.register FakeBraintree, url: ENV.fetch("BRAINTREE_API_URL")
+WebValve.register FakeBraintree, url: "https://api.sandbox.braintreegateway.com"

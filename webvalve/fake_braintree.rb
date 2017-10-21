@@ -2,16 +2,41 @@ class FakeBraintree < WebValve::FakeService
   # # define your routes here
   #
   post "/merchants/:merchant_id/customers" do
-    json_response 200, [{ "hi": "hi" }]
+    gzip_response(
+      200,
+      Braintree::Xml.hash_to_xml(CustomerResponse.build)
+    )
+  end
+
+  post "/merchants/:merchant_id/subscriptions" do
+    gzip_response(
+      200,
+      Braintree::Xml.hash_to_xml(SubscriptionResponse.build)
+    )
   end
 
   private
 
-  def json_response(response_code, file_name)
-    content_type :json
+  def parse_params(xml)
+    Nokogiri::XML(xml)
+      .root
+      .element_children
+      .each_with_object(Hash.new) do |e,h|
+        h[e.name.to_sym] = e.content
+      end
+  end
+
+  def gzip_response(response_code, xml)
     status response_code
-    file_name.to_json
-    # File.open(File.dirname(__FILE__) + "/fixtures/" + file_name, "rb").read
+    headers["Content-Encoding"] = "gzip"
+    StringIO.new.tap do |io|
+      gz = Zlib::GzipWriter.new(io)
+      begin
+        gz.write(xml)
+      ensure
+        gz.close
+      end
+    end.string
   end
   #
   # # set the base url for this API via ENV
