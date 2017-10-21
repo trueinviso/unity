@@ -24,18 +24,18 @@ module CustomerResponse
               first_name: attributes[:first_name],
               last_name: attributes[:last_name],
               company: attributes[:company],
-					  	street_address: nil,
-        	  	extended_address: nil,
-        	  	locality: nil,
-        	  	region: nil,
-        	  	postal_code: "94107",
-        	  	country_code_alpha2: nil,
-        	  	country_code_alpha3: nil,
-        	  	country_code_numeric: nil,
-        	  	country_name: nil,
-        	  	created_at: Time.current,
-        	  	updated_at: Time.current
-				    },
+              street_address: nil,
+              extended_address: nil,
+              locality: nil,
+              region: nil,
+              postal_code: "94107",
+              country_code_alpha2: nil,
+              country_code_alpha3: nil,
+              country_code_numeric: nil,
+              country_name: nil,
+              created_at: Time.current,
+              updated_at: Time.current
+            },
             bin: "401288",
             card_type: "Visa",
             cardholder_name: nil,
@@ -66,24 +66,24 @@ module CustomerResponse
             verifications: [],
           }
         ],
-				addresses: [
-		      {
-    			  id: "cx",
-    			  customer_id: "testing_8035",
-    			  first_name: nil,
-    			  last_name: nil,
-    			  company: nil,
-    			  street_address: nil,
-    			  extended_address: nil,
-    			  locality: nil,
-    			  region: nil,
-    			  postal_code: "94107",
-    			  country_code_alpha2: nil,
-    			  country_code_alpha3: nil,
-    			  country_code_numeric: nil,
-    			  country_name: nil,
-    			  created_at: Time.current,
-    			  updated_at: Time.current
+        addresses: [
+          {
+            id: "cx",
+            customer_id: "testing_8035",
+            first_name: nil,
+            last_name: nil,
+            company: nil,
+            street_address: nil,
+            extended_address: nil,
+            locality: nil,
+            region: nil,
+            postal_code: "94107",
+            country_code_alpha2: nil,
+            country_code_alpha3: nil,
+            country_code_numeric: nil,
+            country_name: nil,
+            created_at: Time.current,
+            updated_at: Time.current
           }
         ]
       }
