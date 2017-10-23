@@ -13,9 +13,10 @@ module Unity
             payment_method_nonce: "fake-nonce",
             plan_id: "premium_monthly_subscription",
           }
+          configure_response
           described_class.create_customer_subscription(user, params)
           created_subscription = ::Unity::Subscription.first
-          assert_equal user, created_subscription.user
+          assert_equal user.id, created_subscription.user.id
           assert created_subscription.active?
           assert_equal created_subscription.subscription_plan_id, plan.id
           assert_equal created_subscription.user_id, user.id
@@ -28,6 +29,13 @@ module Unity
           attr_accessor :gateway_customer_id
         end)
         user_class.create!
+      end
+
+      def configure_response
+        configure_fake_braintree_response({
+          customer: "CustomerResponse",
+          subscription: "SubscriptionResponse",
+        })
       end
     end
   end

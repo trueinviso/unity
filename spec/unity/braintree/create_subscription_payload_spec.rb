@@ -48,22 +48,29 @@ module Unity
       private
 
       class PayloadTestObject
+        include FakeBraintreeConfiguration
+
         attr_reader :bt_customer
         attr_reader :discounts
         attr_reader :params
         attr_reader :response_class
 
         def initialize(discounts:, params:, response_class:)
-          FakeBraintree.response_class = {
-            customer: response_class,
-            subscription: "SubscriptionResponse",
-          }
+          @response_class = response_class
           @params = params
           @discounts = discounts
+          configure_response
         end
 
         def bt_customer
           @bt_customer ||= BraintreeService.create_customer({}).customer
+        end
+
+        def configure_response
+          configure_fake_braintree_response({
+            customer: response_class,
+            subscription: "SubscriptionResponse",
+          })
         end
 
         def create_payload
