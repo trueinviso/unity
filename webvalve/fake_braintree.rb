@@ -4,27 +4,33 @@ class FakeBraintree < WebValve::FakeService
   post "/merchants/:merchant_id/customers" do
     gzip_response(
       200,
-      Braintree::Xml.hash_to_xml(CustomerResponse.build)
+      Braintree::Xml.hash_to_xml(response_class(:customer).build)
     )
   end
 
   post "/merchants/:merchant_id/subscriptions" do
     gzip_response(
       200,
-      Braintree::Xml.hash_to_xml(SubscriptionResponse.build)
+      Braintree::Xml.hash_to_xml(
+        response_class(:subscription).build,
+      )
     )
   end
 
   private
 
-  def parse_params(xml)
-    Nokogiri::XML(xml)
-      .root
-      .element_children
-      .each_with_object(Hash.new) do |e,h|
-        h[e.name.to_sym] = e.content
-      end
+  def response_class(key)
+    Object.const_get(FakeBraintree.response_class[key])
   end
+
+  # def parse_params(xml)
+  #   Nokogiri::XML(xml)
+  #     .root
+  #     .element_children
+  #     .each_with_object(Hash.new) do |e,h|
+  #       h[e.name.to_sym] = e.content
+  #     end
+  # end
 
   def gzip_response(response_code, xml)
     status response_code
