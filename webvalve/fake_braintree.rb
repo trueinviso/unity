@@ -8,7 +8,23 @@ class FakeBraintree < WebValve::FakeService
     )
   end
 
+  get "/merchants/:merchant_id/customers/:id" do
+    gzip_response(
+      200,
+      Braintree::Xml.hash_to_xml(response_class(:customer).build)
+    )
+  end
+
   post "/merchants/:merchant_id/subscriptions" do
+    gzip_response(
+      200,
+      Braintree::Xml.hash_to_xml(
+        response_class(:subscription).build,
+      )
+    )
+  end
+
+  get "/merchants/:merchant_id/subscriptions/:id" do
     gzip_response(
       200,
       Braintree::Xml.hash_to_xml(
