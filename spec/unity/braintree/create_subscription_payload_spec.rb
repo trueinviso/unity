@@ -37,10 +37,10 @@ module Unity
         end
       end
 
-      def initialize_test_object(params, response_class, discounts = {})
+      def initialize_test_object(params, customer_response_class, discounts = {})
         PayloadTestObject.new(
           params: params,
-          response_class: response_class,
+          customer_response_class: customer_response_class,
           discounts: discounts,
         )
       end
@@ -53,10 +53,10 @@ module Unity
         attr_reader :bt_customer
         attr_reader :discounts
         attr_reader :params
-        attr_reader :response_class
+        attr_reader :customer_response_class
 
-        def initialize(discounts:, params:, response_class:)
-          @response_class = response_class
+        def initialize(discounts:, params:, customer_response_class:)
+          @customer_response_class = customer_response_class
           @params = params
           @discounts = discounts
           configure_response
@@ -68,7 +68,7 @@ module Unity
 
         def configure_response
           configure_fake_braintree_response({
-            customer: response_class,
+            customer: customer_response_class,
             subscription: "SubscriptionResponse",
           })
         end
