@@ -24,9 +24,9 @@ Or install it yourself as:
 $ gem install unity
 ```
 
-Install the migrations:
+Migrate the database to build subscription and subscription_plan tables:
 ```bash
-rails unity:install:migrations
+rake db:migrate
 ```
 
 ## Contributing
