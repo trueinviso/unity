@@ -37,7 +37,7 @@ Rails.application.routes.draw do
 end
 ```
 
-Create initializer `config/initializers/unity.rb`:
+Create initializer `config/initializers/unity.rb` with braintree credentials:
 ```ruby
 require "unity"
 
