@@ -16,7 +16,7 @@ gem 'unity'
 
 And then execute:
 ```bash
-$ bundle
+$ bundle install
 ```
 
 Or install it yourself as:
@@ -24,6 +24,7 @@ Or install it yourself as:
 $ gem install unity
 ```
 
+## Setup
 Migrate the database to build subscription and subscription_plan tables:
 ```bash
 rake db:migrate
@@ -35,6 +36,19 @@ Rails.application.routes.draw do
   mount Unity::Engine, at: "/"
 end
 ```
+
+Create initializer `config/initializers/unity.rb`:
+```ruby
+require "unity"
+
+Unity::BraintreeGateway.configure_braintree(
+  environment: ENV["BRAINTREE_ENVIRONMENT"],
+  merchant_id: ENV["BRAINTREE_MERCHANT_ID],
+  public_key: ENV["BRAINTREE_PUBLIC_KEY"],
+  private_key: ENV["BRAINTREE_PRIVATE_KEY"],
+)
+```
+
 
 ## Contributing
 Contribution directions go here.
