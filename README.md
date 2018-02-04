@@ -29,6 +29,13 @@ Migrate the database to build subscription and subscription_plan tables:
 rake db:migrate
 ```
 
+Mount engine in `config/routes.rb`:
+```ruby
+Rails.application.routes.draw do
+  mount Unity::Engine, at: "/"
+end
+```
+
 ## Contributing
 Contribution directions go here.
 
