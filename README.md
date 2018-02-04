@@ -24,6 +24,11 @@ Or install it yourself as:
 $ gem install unity
 ```
 
+Install the migrations:
+```ruby
+rails unity:install:migrations
+```
+
 ## Contributing
 Contribution directions go here.
 
