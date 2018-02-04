@@ -10,3 +10,8 @@
       .form__input#card-expire-year
     .flex-col.form__one-third-field
       .form__input#cvv-field{ "data-field-name": "CVV" }
+    %div.small-12.columns
+      %div.small-12.columns= f.submit 'Get started', id: 'stripe-submit', data: { disable_with: "Please wait..." }
+
+      %div.small-12.columns.instructions
+        Your card will be charged upon submitting this form and begin your subscription.

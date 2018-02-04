@@ -26,12 +26,7 @@
                   = radio_button_tag :plan_id, 'yearly'
                   = label_tag(:plan_yearly, 'Yearly - $120 once a year')
 
-            = render "payment_method/card_details"
-              %div.small-12.columns
-                %div.small-12.columns= f.submit 'Get started', id: 'stripe-submit', data: { disable_with: "Please wait..." }
-
-                %div.small-12.columns.instructions
-                  Your card will be charged upon submitting this form and begin your subscription.
+            = render "payment_method/card_details"=
 
 %script{ src: "https://js.braintreegateway.com/js/braintree-2.32.1.min.js" }
 :javascript
