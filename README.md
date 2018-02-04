@@ -25,7 +25,7 @@ $ gem install unity
 ```
 
 Install the migrations:
-```ruby
+```bash
 rails unity:install:migrations
 ```
 
