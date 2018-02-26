@@ -25,6 +25,11 @@ $ gem install unity
 ```
 
 ## Setup
+Install the migrations:
+```bash
+rake unity:install:migrations
+```
+
 Migrate the database to build subscription and subscription_plan tables:
 ```bash
 rake db:migrate
@@ -46,6 +51,15 @@ Unity::BraintreeGateway.configure_braintree(
   merchant_id: ENV["BRAINTREE_MERCHANT_ID],
   public_key: ENV["BRAINTREE_PUBLIC_KEY"],
   private_key: ENV["BRAINTREE_PRIVATE_KEY"],
+)
+```
+
+Add your Braintree Plans to the database:
+```ruby
+Unity::SubscriptionPlan.create!(
+  gateway_id: "monthly_subscription",
+  period: "1", # correlates to number of months in billing cycle
+  price: "19.95",
 )
 ```
 
