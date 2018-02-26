@@ -1,0 +1,9 @@
+.secondary-heading
+  Plan Options
+
+- Unity::SubscriptionPlan.all.each do |sp|
+  .subscription-plan__radio-button
+    = radio_button_tag :plan_id, sp.gateway_id
+    = label_tag(sp.gateway_id.to_sym, sp.display_name)
+
+

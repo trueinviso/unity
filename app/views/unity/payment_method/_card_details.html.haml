@@ -1,17 +1,15 @@
-.form__field
-  .form__card-field
-    %label.form__label Card Number
-    .form__input#card-number
-
-  .flex-row
-    .flex-col.form__one-third-field
-      .form__input#card-expire-month
-    .flex-col.form__one-third-field
-      .form__input#card-expire-year
-    .flex-col.form__one-third-field
-      .form__input#cvv-field{ "data-field-name": "CVV" }
-    %div.small-12.columns
-      %div.small-12.columns= f.submit 'Get started', id: 'stripe-submit', data: { disable_with: "Please wait..." }
-
-      %div.small-12.columns.instructions
-        Your card will be charged upon submitting this form and begin your subscription.
+.secondary-heading
+  Payment Details
+.row
+  %label.label{ for: "card-number" } Card Number
+  .text-field#card-number
+.row
+  .small-4.columns.text-field-padding
+    %label.label{ for: "card-expire-month" } Expiration Month
+    .text-field#card-expire-month
+  .small-4.columns.text-field-padding
+    %label.label{ for: "card-expire-year" } Expiration Year
+    .text-field#card-expire-year
+  .small-4.columns.text-field-padding
+    %label.label{ for: "cvv-field" } CVC - Security Code
+    .text-field#cvv-field

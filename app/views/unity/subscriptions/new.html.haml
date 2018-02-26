@@ -1,55 +1,26 @@
-%div.align-center.align-vertical.row.forms
-  %div.column.small-12.medium-10.wrapper
-    %div#new-subscription.row.align-center.align-vertical
-      %div.column.small-12
-        %div.small-12.columns
-          %h2.small-12.columns.external-header
-            Payment information
+.align-center.forms
+  .column.small-12.medium-7
+    .secondary-heading
+      Payment information
 
-        %div
-          = form_for :subscription,
-            url: [:subscription],
-            method: :create,
-            html: { id: "braintree-payment-form",
-            "data-validate": "data-validate",
-            "no-validate": "no-validate" } do |f|
-            = hidden_field_tag :authenticity_token, form_authenticity_token
-            = hidden_field_tag :payment_method_nonce
-            %div.small-12.columns
-              %div.small-12.columns
-                %label Billing cycle
-              %div.small-12.columns
-                %div.monthly-radio.small-6.column.radio.active
-                  = radio_button_tag :plan_id, 'monthly_subscription', checked: true
-                  = label_tag(:plan_monthly, 'Monthly - $15 every month')
-                %div.yearly-radio.small-6.column.radio
-                  = radio_button_tag :plan_id, 'yearly'
-                  = label_tag(:plan_yearly, 'Yearly - $120 once a year')
+    = form_for :subscription,
+      url: [:subscription],
+      method: :create,
+      html: { id: "braintree-payment-form",
+      "data-validate": "data-validate",
+      "no-validate": "no-validate" } do |f|
 
-            = render "payment_method/card_details"
+      = hidden_field_tag :authenticity_token, form_authenticity_token
+      = hidden_field_tag :payment_method_nonce
 
-%script{ src: "https://js.braintreegateway.com/js/braintree-2.32.1.min.js" }
+      = render "plan_options"
+      = render "unity/payment_method/card_details", f: f
+
+      .submit-field
+        = f.submit 'Get started',
+          data: { disable_with: "Please wait..." }
+
+%script{  src: "//cdnjs.cloudflare.com/ajax/libs/require.js/2.3.1/require.min.js" }
+
 :javascript
-  braintree.setup('#{@token}', 'custom', {
-    id: "braintree-payment-form",
-    hostedFields: {
-      styles: {
-        'input': {
-          'color': '#474D51',
-          'font-size': '14px'
-        }
-      },
-      number: {
-        selector: '#card-number'
-      },
-      expirationMonth: {
-        selector: '#card-expire-month'
-      },
-      expirationYear: {
-        selector: '#card-expire-year'
-      },
-      cvv: {
-        selector: '#cvv-field'
-      }
-    }
-  });
+  braintree_setup('#{@token}');

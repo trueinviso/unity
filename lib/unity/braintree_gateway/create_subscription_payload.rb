@@ -7,7 +7,12 @@ module Unity
       attr_reader :discount_payload
       attr_reader :braintree_service
 
-      def initialize(params:, bt_customer:, discount_payload: { discounts: {} }, braintree_service: BraintreeService)
+      def initialize(
+        params:,
+        bt_customer:,
+        discount_payload: { discounts: {} },
+        braintree_service: BraintreeService
+      )
         @params = params
         @bt_customer = bt_customer
         @discount_payload = discount_payload
@@ -15,7 +20,9 @@ module Unity
       end
 
       def build
-        assert_customer_does_not_already_have_active_subscription
+        if !Unity.allow_multiple_subscriptions
+          assert_customer_does_not_already_have_active_subscription
+        end
         payload.merge!(discount_payload)
       end
 

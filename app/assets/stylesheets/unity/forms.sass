@@ -1,0 +1,63 @@
+@import "variables_and_mixins"
+
+.align-center
+  display: flex
+  flex-flow: row wrap
+  justify-content: center
+  clear: both
+
+.text-field
+  box-shadow: none
+  border: solid 2px $iron
+  border-radius: 3px
+  font-size: 14px
+  color: $black
+  background: $white
+  height: 48px
+  margin-bottom: 35px
+  padding: 5px
+  &:focus
+    border-color: $royal
+    box-shadow: none
+    background-color: $white
+.secondary-heading
+  font-size: 24px
+  margin-bottom: 35px
+
+.row
+  label
+    font-size: 12px
+    color: black
+    font-weight: bold
+    margin-bottom: 8px
+    background: none
+    padding-left: 0
+
+  .text-field-padding
+    padding-left: 0 !important
+    padding-right: 13px !important
+    &:last-child
+      padding-right: 0px !important
+
+.subscription-plan__radio-button > label
+  font-size: 16px
+  font-weight: bold
+  height: 26px
+
+.subscription-plan__radio-button
+  margin-bottom: 15px
+
+.submit-field
+  input
+    color: $white
+    font-size: 14px
+    background-color: $royal
+    height: 40px
+    margin-bottom: 50px
+    padding: 8px 45px 13px 45px
+    border-radius: 4px
+    border: solid 2px $royal
+    &:hover
+      cursor: pointer
+      background-color: $white
+      color: $royal
