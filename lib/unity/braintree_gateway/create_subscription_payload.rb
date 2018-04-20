@@ -55,6 +55,10 @@ module Unity
           raise Errors::ActiveSubscriptionError
         end
       end
+
+      def assert_plan_id_present
+        raise Errors::NoPlanIdError if params[:plan_id].blank?
+      end
     end
   end
 end

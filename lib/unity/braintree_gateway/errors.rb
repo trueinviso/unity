@@ -3,6 +3,7 @@ module Unity
     module Errors
       class NoCustomerPaymentMethodError < StandardError; end
       class ActiveSubscriptionError < StandardError; end
+      class NoPlanIdError < StandardError; end
     end
   end
 end

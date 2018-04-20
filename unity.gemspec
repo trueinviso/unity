@@ -14,8 +14,9 @@ Gem::Specification.new do |s|
   # s.test_files = Dir["spec/**/*"]
 
   s.add_runtime_dependency "braintree", "~> 2.78"
-  s.add_dependency "rails", "~> 5.1"
+  s.add_dependency "rails", "~> 5.2.0"
   s.add_dependency "haml", "~> 5.0"
+  s.add_dependency "sass-rails"
 
   s.add_development_dependency "shoulda-matchers"
   s.add_development_dependency "rspec-rails"
