@@ -50,7 +50,6 @@ module Unity
       end
 
       def swap_billing_cycle
-        byebug
         SwapBillingCycle.for(swap_builder)
       end
 

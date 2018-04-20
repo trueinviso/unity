@@ -2,7 +2,7 @@ module Unity
   module BraintreeGateway
     module Plan
       extend self
-      mattr_reader :braintree_service { BraintreeService }
+      mattr_reader :braintree_service, default: BraintreeService
 
       def plans
         braintree_service.braintree_plans

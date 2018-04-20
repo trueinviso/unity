@@ -16,7 +16,6 @@ module Unity
       private
 
       def get_customer
-        byebug
         result = find_customer if user.gateway_customer_id.present?
         result = create_customer unless result&.success?
         update_local_user(result) if result.success?

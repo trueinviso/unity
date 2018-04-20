@@ -9,12 +9,10 @@
     "data-validate": "data-validate",
     "no-validate": "no-validate" } do |form|
     %div.small-12.columns
-    %div.monthly-radio.small-6.column.radio.active
-      = radio_button_tag :plan_id, 'monthly_subscription', checked: true
-      = label_tag(:plan_monthly, 'Monthly - $15 every month')
-    %div.yearly-radio.small-6.column.radio
-      = radio_button_tag :plan_id, 'yearly_subscription'
-      = label_tag(:plan_yearly, 'Yearly - $120 once a year')
+    - Unity::SubscriptionPlan.all.each do |plan|
+      %div.monthly-radio.small-6.column.radio.active
+        = radio_button_tag :plan_id, plan.gateway_id, checked: true
+        = label_tag(plan.gateway_id.to_sym, plan.name)
     %div
       = form.submit "Update Subscription"
 
