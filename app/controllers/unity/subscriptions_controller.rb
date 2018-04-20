@@ -23,7 +23,8 @@ module Unity
       result = update_subscription
 
       if result.success?
-        redirect_to [:root]
+        redirect_to [:new, :subscription]
+        # redirect_to main_app.root_path
       else
         redirect_to action: "edit"
       end
@@ -54,12 +55,18 @@ module Unity
     end
 
     def create_subscription
-      # TODO: raise error if host app doesn't provide current_user
-      # need to add gateway_customer_id to user model in host app
+      validate_user
       BraintreeGateway::Actions.create_customer_subscription(
         current_user,
         create_params,
       )
+    end
+
+    def validate_user
+      raise Errors::NoCurrentUserProvided if current_user.blank?
+      if !current_user.has_attribute?(:gateway_customer_id)
+        raise Errors::NoGatewayCustomerIdOnUserModel
+      end
     end
 
     def update_subscription
