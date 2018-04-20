@@ -13,7 +13,8 @@ module Unity
       result = create_subscription
 
       if result.success?
-        redirect_to [:root]
+        redirect_to [:new, :subscription]
+        # redirect_to main_app.root_path
       else
         redirect_to action: "new"
       end
