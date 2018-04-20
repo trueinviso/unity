@@ -25,7 +25,7 @@ $ gem install unity
 ```
 
 ## Setup
-Install the migrations:
+Install the migrations if you want to override:
 ```bash
 rake unity:install:migrations
 ```
@@ -52,6 +52,8 @@ Unity::BraintreeGateway.configure_braintree(
   public_key: ENV["BRAINTREE_PUBLIC_KEY"],
   private_key: ENV["BRAINTREE_PRIVATE_KEY"],
 )
+
+Unity.user_class = "User"
 ```
 
 Add your Braintree Plans to the database:
@@ -62,6 +64,8 @@ Unity::SubscriptionPlan.create!(
   price: "19.95",
 )
 ```
+
+Add `plan-credit` discount to braintree for billing cycle changes.
 
 
 ## Contributing
