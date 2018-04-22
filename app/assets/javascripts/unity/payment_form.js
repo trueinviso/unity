@@ -1,4 +1,4 @@
-function braintree_setup(token) {
+function braintree_hosted_fields_setup(token) {
   require.config({
     paths: {
       braintreeClient: 'https://js.braintreegateway.com/web/3.29.0/js/client.min',
