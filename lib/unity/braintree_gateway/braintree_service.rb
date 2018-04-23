@@ -23,6 +23,11 @@ module Unity
         result
       end
 
+      def update_customer(user, payload)
+        gateway_id = user.gateway_customer_id
+        ::Braintree::Customer.update(gateway_id, payload)
+      end
+
       def cancel_subscription(gateway_id)
         ::Braintree::Subscription.cancel(gateway_id)
       end

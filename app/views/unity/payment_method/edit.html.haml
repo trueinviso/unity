@@ -1,0 +1,11 @@
+= form_for :payment_method,
+  url: [:payment_method],
+  method: :put,
+  html: { id: "braintree-payment-form",
+  "data-validate":"data-validate",
+  "no-validate": "no-validate" } do |f|
+
+  = render "unity/payment_method/card_details", f: f
+
+  = f.submit "Update Payment Method",
+    data: { disable_with: "Please wait..." }

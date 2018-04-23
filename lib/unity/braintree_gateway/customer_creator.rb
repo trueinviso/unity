@@ -41,8 +41,10 @@ module Unity
       end
 
       def update_local_user(result)
-        # TODO: put payment method token here too
-        user.update!(gateway_customer_id: result.customer.id)
+        user.update!(
+          gateway_customer_id: result.customer.id,
+          payment_token: result.customer.default_payment_method.token,
+        )
       end
 
       def generate_gateway_id

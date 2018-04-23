@@ -7,13 +7,11 @@
     method: :put,
     html: { id: "braintree-payment-form",
     "data-validate": "data-validate",
-    "no-validate": "no-validate" } do |form|
-    %div.small-12.columns
-    - Unity::SubscriptionPlan.all.each do |plan|
-      %div.monthly-radio.small-6.column.radio.active
-        = radio_button_tag :plan_id, plan.gateway_id, checked: true
-        = label_tag(plan.gateway_id.to_sym, plan.name)
-    %div
-      = form.submit "Update Subscription"
+    "no-validate": "no-validate" } do |f|
+
+    = render "plan_options"
+
+    .submit-field
+      = f.submit "Update Subscription"
 
 = link_to "Cancel Subscription", [:subscription, :delete]
