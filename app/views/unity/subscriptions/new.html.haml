@@ -1,4 +1,3 @@
-
 .align-center.forms
   .column.small-12.medium-7
     .secondary-heading
@@ -15,16 +14,8 @@
       = hidden_field_tag :payment_method_nonce
 
       = render "plan_options"
+      = render "unity/payment_method/card_details", f: f
 
-      - if Unity.hosted_fields
-        = render "unity/payment_method/card_details", f: f
-        %script{ src: "//cdnjs.cloudflare.com/ajax/libs/require.js/2.3.1/require.min.js" }
-        :javascript
-          braintree_hosted_fields_setup('#{@token}');
-      - else
-        %script{ src: "https://js.braintreegateway.com/web/dropin/1.10.0/js/dropin.min.js",
-          "data-braintree-dropin-authorization": "#{@token}",
-          "data-paypal.flow": "vault" }
 
       .submit-field
         = f.submit 'Get started',
