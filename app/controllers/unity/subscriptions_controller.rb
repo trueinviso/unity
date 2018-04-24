@@ -1,5 +1,6 @@
 module Unity
   class SubscriptionsController < ApplicationController
+    before_action :validate_user
     before_action :set_subscription
     before_action :verify_subscription_state, except: [:destroy]
 
@@ -61,7 +62,6 @@ module Unity
     end
 
     def create_subscription
-      validate_user
       gateway = Object.const_get(
         "Unity::#{create_params.delete(:gateway_type).capitalize}Gateway"
       )

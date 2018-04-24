@@ -11,6 +11,20 @@ module Unity
         ::Braintree::Subscription.update(gateway_id, payload)
       end
 
+      def begin_trial(user)
+        if Subscription.find_by(user_id: user.id)&.previously_subscribed?
+          raise ActiveBraintreeSubscriptionError
+        end
+        subscription = Subscription.where(user: user).first_or_initialize
+
+        subscription.update!(
+          user: user,
+          trial_ends_at: 1.week.from_now,
+          subscription_plan: SubscriptionPlan.find_by(name: "trial"),
+        )
+        subscription.reload
+      end
+
       def create_customer(payload)
         ::Braintree::Customer.create(payload)
       end

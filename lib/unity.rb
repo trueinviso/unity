@@ -5,6 +5,7 @@ require "braintree"
 
 module Unity
   autoload :BraintreeGateway, "unity/braintree_gateway"
+  autoload :Errors, "unity/errors"
 
   mattr_accessor :user_class,
     :allow_multiple_subscriptions,
