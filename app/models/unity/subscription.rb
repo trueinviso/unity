@@ -19,5 +19,19 @@ module Unity
     def previously_subscribed?
       gateway_id.present?
     end
+
+    def trial?
+      !trial_expired?
+    end
+
+    def paid?
+      previously_subscribed? &&
+        active?
+    end
+
+    def trial_expired?
+      return true unless trial_ends_at.present?
+      trial_ends_at < Time.current
+    end
   end
 end
