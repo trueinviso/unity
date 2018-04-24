@@ -11,5 +11,13 @@ module Unity
       pending: 4,
     }
 
+    enum gateway_type: {
+      braintree: 0,
+      stripe: 1,
+    }
+
+    def previously_subscribed?
+      gateway_id.present?
+    end
   end
 end

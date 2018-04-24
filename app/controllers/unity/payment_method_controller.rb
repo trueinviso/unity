@@ -1,5 +1,7 @@
 module Unity
   class PaymentMethodController < ApplicationController
+    before_action :verify_subscription, only: [:edit, :update]
+
     def edit
       @token = BraintreeGateway::Actions.generate_client_token
     end
@@ -33,6 +35,12 @@ module Unity
     def update_customer
       BraintreeGateway::Actions
         .update_customer(current_user, update_args)
+    end
+
+    def verify_subscription
+      Subscription
+        .find_by(id: current_user.id)
+        &.previously_subscribed?
     end
   end
 end

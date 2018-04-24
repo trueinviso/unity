@@ -5,6 +5,7 @@ class CreateUnitySubscriptions < ActiveRecord::Migration[5.1]
       t.references :subscription_plan, index: true
       t.string :gateway_id
       t.integer :gateway_status
+      t.integer :gateway_type
       t.datetime :trial_ends_at
       t.boolean :group_enrolled
 

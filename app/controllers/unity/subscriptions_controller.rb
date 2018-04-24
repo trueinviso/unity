@@ -1,6 +1,7 @@
 module Unity
   class SubscriptionsController < ApplicationController
-    before_action :set_subscription, only: [:update]
+    before_action :set_subscription
+    before_action :verify_subscription_state, except: [:destroy]
 
     def new
       @token = BraintreeGateway::Actions.generate_client_token
@@ -44,7 +45,11 @@ module Unity
     private
 
     def create_params
-      params.permit(:payment_method_nonce, :plan_id)
+      params.permit(
+        :payment_method_nonce,
+        :plan_id,
+        :gateway_type,
+      )
     end
 
     def update_params
@@ -57,7 +62,10 @@ module Unity
 
     def create_subscription
       validate_user
-      BraintreeGateway::Actions.create_customer_subscription(
+      gateway = Object.const_get(
+        "Unity::#{create_params.delete(:gateway_type).capitalize}Gateway"
+      )
+      gateway::Actions.create_customer_subscription(
         current_user,
         create_params,
       )
@@ -71,17 +79,27 @@ module Unity
     end
 
     def update_subscription
-      BraintreeGateway::Actions.update_subscription(
+      gateway = Object.const_get("Unity::#{@subscription.gateway_type.capitalize}Gateway")
+      gateway::Actions.update_subscription(
         @subscription,
         update_params,
       )
     end
 
     def cancel_subscription
-      BraintreeGateway::Actions.cancel_subscription(
+      gateway = Object.const_get("Unity::#{@subscription.gateway_type.capitalize}Gateway")
+      gateway::Actions.cancel_subscription(
         Subscription.find_by(user_id: current_user.id),
       )
     end
 
+    def verify_subscription_state
+      case action_name.to_sym
+      when :create, :new
+        redirect_to [:edit, :subscription] if @subscription&.previously_subscribed?
+      when :edit, :update
+        redirect_to [:new, :subscription] if !@subscription&.previously_subscribed?
+      end
+    end
   end
 end
