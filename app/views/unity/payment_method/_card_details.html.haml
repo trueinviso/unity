@@ -1,5 +1,5 @@
-= hidden_field_tag :gateway_type, Unity.gateway_type
-- if Unity.hosted_fields
+= hidden_field_tag :gateway_type, Unity.config.gateway_type
+- if Unity.config.hosted_fields
   .secondary-heading
     Payment Details
   .row
@@ -21,6 +21,14 @@
     braintree_hosted_fields_setup('#{@token}');
 
 - else
-  %script{ src: "https://js.braintreegateway.com/web/dropin/1.10.0/js/dropin.min.js",
-    "data-braintree-dropin-authorization": "#{@token}",
-    "data-paypal.flow": "vault" }
+  - case Unity.config.gateway_type
+  - when :braintree
+    %script{ src: "https://js.braintreegateway.com/web/dropin/1.10.0/js/dropin.min.js",
+      "data-braintree-dropin-authorization": "#{@token}",
+      "data-paypal.flow": "vault" }
+  - when :stripe
+    #card-errors
+    #card-element
+    %script{ src: "https://js.stripe.com/v3/" }
+    :javascript
+      stripe_dropin_setup("#{@token}")

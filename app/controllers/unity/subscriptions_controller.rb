@@ -5,7 +5,7 @@ module Unity
     before_action :verify_subscription_state, except: [:destroy]
 
     def new
-      @token = BraintreeGateway::Actions.generate_client_token
+      @token = Unity.config.client_token
     end
 
     def edit
@@ -50,6 +50,7 @@ module Unity
         :payment_method_nonce,
         :plan_id,
         :gateway_type,
+        :source,
       )
     end
 

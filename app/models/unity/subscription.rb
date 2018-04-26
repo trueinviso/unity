@@ -1,6 +1,6 @@
 module Unity
   class Subscription < ApplicationRecord
-    belongs_to :user, class_name: Unity.user_class
+    belongs_to :user, class_name: Unity.config.user_class
     belongs_to :subscription_plan
 
     enum gateway_status: {
@@ -9,6 +9,8 @@ module Unity
       expired: 2,
       past_due: 3,
       pending: 4,
+      trialing: 5,
+      unpaid: 6,
     }
 
     enum gateway_type: {

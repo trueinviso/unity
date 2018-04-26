@@ -67,6 +67,25 @@ Unity::SubscriptionPlan.create!(
 
 Add `plan-credit` discount to braintree for billing cycle changes.
 
+If you want to use stripe, add a hook to create the stripe customer
+before you create a subscription.  For example, if you use devise,
+in your registrations controller:
+
+```
+module Users
+  class RegistrationsController < Devise::RegistrationsController
+    after_action :create_stripe_customer, only: [:create]
+
+    private
+
+    def create_stripe_customer
+      return if resource.errors.any?
+      Unity::StripeGateway::CustomerCreator.call!(resource)
+    end
+  end
+end
+```
+
 
 ## Contributing
 Contribution directions go here.

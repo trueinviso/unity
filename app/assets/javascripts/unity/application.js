@@ -11,4 +11,5 @@
 // about supported directives.
 //
 //= require_tree .
-//= require unity/payment_form
+//= require unity/braintree_payment_form
+//= require unity/stripe_payment_form
