@@ -1,15 +1,15 @@
 module Unity
   class Configuration
-    attr_accessor :user_class,
-      :allow_multiple_subscriptions,
-      :hosted_fields,
-      :gateway_type,
-      :stripe_publishable_key,
-      :stripe_secret_key,
+    attr_accessor :allow_multiple_subscriptions,
       :braintree_environment,
       :braintree_merchant_id,
-      :braintree_public_key,
       :braintree_private_key
+      :braintree_public_key,
+      :gateway_type,
+      :hosted_fields,
+      :stripe_publishable_key,
+      :stripe_secret_key,
+      :user_class
 
 
     def initialize
