@@ -20,7 +20,7 @@ module Unity
       end
 
       def build
-        if !Unity.allow_multiple_subscriptions
+        if !Unity.config.allow_multiple_subscriptions
           assert_customer_does_not_already_have_active_subscription
         end
         payload.merge!(discount_payload)

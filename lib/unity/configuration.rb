@@ -3,7 +3,7 @@ module Unity
     attr_accessor :allow_multiple_subscriptions,
       :braintree_environment,
       :braintree_merchant_id,
-      :braintree_private_key
+      :braintree_private_key,
       :braintree_public_key,
       :gateway_type,
       :hosted_fields,

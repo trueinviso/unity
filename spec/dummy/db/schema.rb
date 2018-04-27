@@ -10,13 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170912044257) do
+ActiveRecord::Schema.define(version: 2017_09_12_044257) do
 
   create_table "unity_subscription_plans", force: :cascade do |t|
-    t.string "gateway_id", null: false
-    t.string "period", null: false
-    t.string "price", null: false
+    t.string "gateway_id"
+    t.string "period"
+    t.string "price"
     t.string "group_enrollment_add_on_price"
+    t.string "name", null: false
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -26,6 +28,7 @@ ActiveRecord::Schema.define(version: 20170912044257) do
     t.integer "subscription_plan_id"
     t.string "gateway_id"
     t.integer "gateway_status"
+    t.integer "gateway_type"
     t.datetime "trial_ends_at"
     t.boolean "group_enrolled"
     t.datetime "created_at", null: false

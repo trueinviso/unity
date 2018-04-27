@@ -6,6 +6,7 @@ FactoryGirl.define do
     # rank 50
 
     factory :premium_monthly_plan do
+      name "Premium Plan"
       gateway_id "premium_monthly_subscription"
       group_enrollment_add_on_price 10.00
     end

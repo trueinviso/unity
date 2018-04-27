@@ -10,6 +10,14 @@ require 'webvalve/rspec'
 # Include files for webvalve to mock web requests
 Dir[Rails.root.join("../../webvalve/**/*.rb")].each { |f| require f }
 require File.expand_path('../../config/webvalve.rb', __FILE__)
+
+# dotenv wasn't loading variables, so set them directly
+# from spec/dummy/.env.test here
+File.open(Rails.root.join(".env.test"), "r").each_line do |line|
+  a = line.chomp("\n").split('=',2)
+  a[1].gsub!(/^"|"$/, '') if ['\'','"'].include?(a[1][0])
+  eval "ENV['#{a[0]}']='#{a[1] || ''}'"
+end
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in

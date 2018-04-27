@@ -19,13 +19,9 @@ module Unity
         SubscriptionUpdater.call!(subscription, params)
       end
 
-      # def update_customer(user, params)
-      #   CustomerUpdater.update!(user, params)
-      # end
-
-      # def generate_client_token
-      #   BraintreeService.generate_client_token
-      # end
+      def update_customer(user, params)
+        CustomerUpdater.update!(user, params)
+      end
     end
   end
 end

@@ -2,10 +2,10 @@
 module BraintreeHelper
   def configure_braintree
     Unity::BraintreeGateway.configure_braintree(
-      environment: ENV["BT_ENVIRONMENT"],
-      merchant_id: ENV["BT_MERCHANT_ID"],
-      public_key: ENV["BT_PUBLIC_KEY"],
-      private_key: ENV["BT_PRIVATE_KEY"],
+      environment: ENV["BRAINTREE_ENVIRONMENT"],
+      merchant_id: ENV["BRAINTREE_MERCHANT_ID"],
+      public_key: ENV["BRAINTREE_PUBLIC_KEY"],
+      private_key: ENV["BRAINTREE_PRIVATE_KEY"],
     )
   end
 end

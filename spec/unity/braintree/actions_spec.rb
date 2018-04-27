@@ -41,7 +41,7 @@ module Unity
       def create_user
         user_class = Object.const_set("User", Class.new(ActiveRecord::Base) do
           self.table_name = "users"
-          attr_accessor :gateway_customer_id
+          attr_accessor :gateway_customer_id, :payment_token
         end)
         user_class.create!
       end

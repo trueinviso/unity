@@ -11,7 +11,6 @@
       "no-validate": "no-validate" } do |f|
 
       = hidden_field_tag :authenticity_token, form_authenticity_token
-      = hidden_field_tag :payment_method_nonce
 
       = render "plan_options"
       = render "unity/payment_method/card_details", f: f
