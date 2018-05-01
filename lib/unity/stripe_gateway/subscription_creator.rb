@@ -18,6 +18,7 @@ module Unity
         result = Result.new(result)
         raise Errors::SubscriptionCreateError unless result.success?
         create_local_subscription(result.result)
+        create_local_payment_method
         result
       end
 
@@ -31,7 +32,7 @@ module Unity
 
       def create_stripe_subscription
         Stripe::Subscription.create(
-          customer: user.gateway_customer_id,
+          customer: gateway_customer.gateway_id,
           source: params.fetch(:payment_method_nonce),
           items: [
             plan: params.fetch(:plan_id),
@@ -44,11 +45,26 @@ module Unity
           .find_or_initialize_by(user: user)
 
         subscription.update!(
-          subscription_plan: subscription_plan,
           gateway_id: result.id,
           gateway_status: result.status,
-          gateway_type: params.fetch(:gateway_type),
+          gateway_type: :stripe,
+          subscription_plan: subscription_plan,
         )
+      end
+
+      def create_local_payment_method
+        payment_method = PaymentMethod
+          .find_or_initialize_by(user: user)
+
+        payment_method.update!(
+          gateway_id: stripe_customer.default_source,
+          gateway_type: :stripe,
+        )
+      end
+
+      def stripe_customer
+        @stripe_customer ||= Stripe::Customer
+          .retrieve(gateway_customer.gateway_id)
       end
 
       def subscription_plan
@@ -57,8 +73,12 @@ module Unity
         )
       end
 
+      def gateway_customer
+        @gateway_customer ||= GatewayCustomer.find_by(user: user)
+      end
+
       def validate_arguments!(user, params)
-        raise Errors::NullCustomerGatewayIdError unless user.gateway_customer_id.present?
+        raise Errors::NullCustomerGatewayIdError unless gateway_customer.gateway_id.present?
         raise Errors::NullPlanIdError unless params.fetch(:plan_id).present?
         unless params.fetch(:payment_method_nonce).present?
           raise Errors::NullSourceError

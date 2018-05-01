@@ -14,20 +14,25 @@ module Unity
 
       def call!
         result = update_customer
-        update_local_customer(result)
+        update_local_payment_method(result)
         define_success_method(result)
       end
 
       private
 
       def update_customer
-        cu = Stripe::Customer.retrieve(user.gateway_customer_id)
+        cu = Stripe::Customer.retrieve(gateway_customer.gateway_id)
         cu.source = params[:payment_method_nonce]
         cu.save
       end
 
-      def update_local_customer(result)
-        user.update!(payment_token: result.default_source)
+      def gateway_customer
+        @gateway_customer ||= GatewayCustomer.find_by(user: user)
+      end
+
+      def update_local_payment_method(result)
+        pm = PaymentMethod.find_by(user_id: user.id)
+        pm.update!(gateway_id: result.default_source)
       end
 
       def define_success_method(result)

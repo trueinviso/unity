@@ -101,7 +101,11 @@ module Unity
       end
 
       def bt_customer
-        braintree_service.find_customer(user.gateway_customer_id)
+        braintree_service.find_customer(gateway_customer.gateway_id)
+      end
+
+      def gateway_customer(user)
+        @gateway_customer ||= GatewayCustomer.find_by(user: user)
       end
 
       def find_braintree_subscription(subscription)

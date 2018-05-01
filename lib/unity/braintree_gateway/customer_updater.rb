@@ -36,10 +36,14 @@ module Unity
         {
           billing_address: billing_address_args,
           options: {
-            update_existing_token: user.payment_token,
+            update_existing_token: payment_token,
             make_default: true,
           },
         }.merge(billing_address_args)
+      end
+
+      def payment_token
+        PaymentMethod.find_by(user_id: user.id).gateway_id
       end
 
       def billing_address_args

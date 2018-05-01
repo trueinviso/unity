@@ -36,43 +36,27 @@ module Unity
         result = braintree_service.create_subscription(
           build_create_subscription_payload
         )
-        update_or_create_local_subscription(result) if result.success?
+        create_local_subscription(result) if result.success?
         result
       end
 
       def build_create_subscription_payload
         CreateSubscriptionPayload.new(
-          params: params,
           bt_customer: bt_customer,
           discount_payload: discount_payload,
+          params: params,
         ).build
       end
 
-      def update_or_create_local_subscription(result)
-        local_subscription = Subscription.find_by(user_id: user.id)
-        if local_subscription
-          update_local_subscription(local_subscription, result)
-        else
-          create_local_subscription(result)
-        end
-      end
+      def create_local_subscription(result)
+        local_subscription = Subscription
+          .find_or_initialize_by(user: user)
 
-      def update_local_subscription(local_subscription, result)
         local_subscription.update!(
           gateway_id: result.subscription.id,
           gateway_status: result.subscription.status.downcase.to_sym,
           gateway_type: :braintree,
           subscription_plan_id: desired_plan.id,
-        )
-      end
-
-      def create_local_subscription(result)
-        Unity::Subscription.create!(
-          gateway_id: result.subscription.id,
-          gateway_status: result.subscription.status.downcase.to_sym,
-          gateway_type: :braintree,
-          subscription_plan_id: desired_plan.id,
-          user_id: user.id,
         )
       end
 

@@ -16,14 +16,19 @@ module Unity
       private
 
       def get_customer
-        result = find_customer if user.gateway_customer_id.present?
+        result = find_customer if gateway_customer&.gateway_id&.present?
         result = create_customer unless result&.success?
-        update_local_user(result) if result.success?
+        create_local_customer(result) if result.success?
+        create_local_payment_method(result) if result.success?
         result
       end
 
       def find_customer
-        braintree_service.find_customer(user.gateway_customer_id)
+        braintree_service.find_customer(gateway_customer.gateway_id)
+      end
+
+      def gateway_customer
+        @gateway_customer ||= GatewayCustomer.find_by(user: user)
       end
 
       def create_customer
@@ -40,10 +45,23 @@ module Unity
         }
       end
 
-      def update_local_user(result)
-        user.update!(
-          gateway_customer_id: result.customer.id,
-          payment_token: result.customer.default_payment_method.token,
+      def create_local_payment_method(result)
+        payment_method = PaymentMethod
+          .find_or_initialize_by(user: user)
+
+        payment_method.update!(
+          gateway_id: result.customer.default_payment_method.token,
+          gateway_type: :stripe,
+        )
+      end
+
+      def create_local_customer(result)
+        customer = GatewayCustomer
+          .find_or_initialize_by(user: user)
+
+        customer.update!(
+          gateway_id: result.customer.id,
+          gateway_type: :braintree,
         )
       end
 

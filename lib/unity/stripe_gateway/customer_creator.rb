@@ -13,7 +13,7 @@ module Unity
 
       def create
         result = create_stripe_customer
-        update_local_user(result)
+        create_local_customer(result)
         result
       end
 
@@ -25,8 +25,14 @@ module Unity
         )
       end
 
-      def update_local_user(result)
-        user.update!(gateway_customer_id: result.id)
+      def create_local_customer(result)
+        customer = GatewayCustomer
+          .find_or_initialize_by(user: user)
+
+        customer.update!(
+          gateway_id: result.id,
+          gateway_type: :stripe,
+        )
       end
     end
   end

@@ -38,7 +38,7 @@ module Unity
       end
 
       def update_customer(user, payload)
-        gateway_id = user.gateway_customer_id
+        gateway_id = gateway_customer(user).gateway_id
         ::Braintree::Customer.update(gateway_id, payload)
       end
 
@@ -58,6 +58,12 @@ module Unity
         ::Braintree::ClientToken.generate(
           merchant_account_id: Configuration.merchant_id
         )
+      end
+
+      private
+
+      def gateway_customer(user)
+        @gateway_customer ||= GatewayCustomer.find_by(user: user)
       end
     end
   end
