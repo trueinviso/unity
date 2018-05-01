@@ -78,9 +78,9 @@ module Unity
       end
 
       def validate_arguments!(user, params)
-        raise Errors::NullCustomerGatewayIdError unless gateway_customer.gateway_id.present?
-        raise Errors::NullPlanIdError unless params.fetch(:plan_id).present?
-        unless params.fetch(:payment_method_nonce).present?
+        raise Errors::NullCustomerGatewayIdError unless gateway_customer&.gateway_id.present?
+        raise Errors::NullPlanIdError unless params[:plan_id].present?
+        unless params[:payment_method_nonce].present?
           raise Errors::NullSourceError
         end
       end
