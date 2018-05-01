@@ -86,6 +86,13 @@ module Users
 end
 ```
 
+## Testing Engine
+
+* Install stripe-mock
+`brew install stripe/stripe-mock/stripe-mock`
+`brew services start stripe-mock`
+`rspec spec`
+
 
 ## Contributing
 Contribution directions go here.

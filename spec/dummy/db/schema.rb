@@ -10,7 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2017_09_12_044257) do
+ActiveRecord::Schema.define(version: 2018_04_30_232046) do
+
+  create_table "unity_gateway_customers", force: :cascade do |t|
+    t.string "gateway_id"
+    t.integer "gateway_type"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_unity_gateway_customers_on_user_id"
+  end
+
+  create_table "unity_payment_methods", force: :cascade do |t|
+    t.string "gateway_id"
+    t.integer "gateway_type"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_unity_payment_methods_on_user_id"
+  end
 
   create_table "unity_subscription_plans", force: :cascade do |t|
     t.string "gateway_id"
@@ -24,13 +42,13 @@ ActiveRecord::Schema.define(version: 2017_09_12_044257) do
   end
 
   create_table "unity_subscriptions", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "subscription_plan_id"
     t.string "gateway_id"
     t.integer "gateway_status"
     t.integer "gateway_type"
-    t.datetime "trial_ends_at"
     t.boolean "group_enrolled"
+    t.integer "subscription_plan_id"
+    t.datetime "trial_ends_at"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["subscription_plan_id"], name: "index_unity_subscriptions_on_subscription_plan_id"

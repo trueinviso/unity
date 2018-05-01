@@ -42,6 +42,9 @@ Dir[Rails.root.join("../../spec/support/**/*.rb")].each { |f| require f }
 Dir[Rails.root.join("../../spec/factories/**/*.rb")].each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
 
+Stripe.api_key = "sk_test_123"
+Stripe.api_base = "http://localhost:12111"
+
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
