@@ -8,6 +8,7 @@ module Unity
       end
 
       def self.call!(user)
+        raise ::Unity::Errors::NoUserProvided if user.blank?
         new(user).create
       end
 
