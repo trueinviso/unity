@@ -51,7 +51,7 @@ module Unity
 
         payment_method.update!(
           gateway_id: result.customer.default_payment_method.token,
-          gateway_type: :stripe,
+          gateway_type: :braintree,
         )
       end
 
