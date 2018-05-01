@@ -2,16 +2,16 @@ require "rails_helper"
 
 module Unity
   module StripeGateway
-    RSpec.describe Actions do
+    RSpec.describe SubscriptionCreator do
       let(:user) { create(:user, :with_gateway_customer) }
       let!(:plan) { create(:premium_monthly_plan) }
 
-      describe ".create_customer_subscription" do
+      describe ".create!" do
         it "creates local subscription" do
           mock_local_payment_creation
 
           result = described_class
-            .create_customer_subscription(user, valid_params)
+            .create!(user, valid_params)
             .result
 
           subscription = user.reload.subscription
@@ -23,19 +23,19 @@ module Unity
 
         it "raises NullCustomerGatewayIdError" do
           user = create(:user)
-          expect { described_class.create_customer_subscription(user, {}) }
+          expect { described_class.create!(user, {}) }
             .to raise_error Errors::NullCustomerGatewayIdError
         end
 
         it "raises NullPlanIdError" do
           params = { payment_method_nonce: "tok_br" }
-          expect { described_class.create_customer_subscription(user, params) }
+          expect { described_class.create!(user, params) }
             .to raise_error Errors::NullPlanIdError
         end
 
         it "raises NullSourceError" do
           params = { plan_id: "premium_monthly_subscription" }
-          expect { described_class.create_customer_subscription(user, params) }
+          expect { described_class.create!(user, params) }
             .to raise_error Errors::NullSourceError
         end
 
@@ -44,7 +44,7 @@ module Unity
             .to receive(:success?)
             .and_return(false)
 
-          expect { described_class.create_customer_subscription(user, valid_params) }
+          expect { described_class.create!(user, valid_params) }
             .to raise_error Errors::SubscriptionCreateError
         end
       end
