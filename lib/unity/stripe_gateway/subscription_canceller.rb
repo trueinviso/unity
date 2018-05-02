@@ -13,8 +13,10 @@ module Unity
 
       def cancel
         result = cancel_stripe_subscription
-        update_local_subscription(result)
-        Result.new(result)
+        result = Result.new(result)
+        raise Errors::SubscriptionCancelError unless result.success?
+        update_local_subscription(result.result)
+        result
       end
 
       private
@@ -26,13 +28,10 @@ module Unity
       end
 
       def update_local_subscription(result)
-        # TODO: add marked for cancellation date to
-        # subscription object:
-        # subscription.update!(
-        #   cancellation_date: Time.at(result.current_period_end)
-        # )
-        # Also set cancellation_date to nil on update in case
-        # they reactivate
+        subscription.update!(
+          cancellation_date: Time.at(result.current_period_end),
+          marked_for_cancellation_at: Time.current,
+        )
       end
 
       def cancel_stripe_subscription

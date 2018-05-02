@@ -1,6 +1,7 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require "spec_helper"
 require "factory_girl_rails"
+require "timecop"
 ENV['RAILS_ENV'] ||= "test"
 require File.expand_path('../../spec/dummy/config/environment.rb', __FILE__)
 # Prevent database truncation if the environment is production

@@ -48,6 +48,8 @@ ActiveRecord::Schema.define(version: 2018_04_30_232046) do
     t.boolean "group_enrolled"
     t.integer "subscription_plan_id"
     t.datetime "trial_ends_at"
+    t.datetime "cancellation_date"
+    t.datetime "marked_for_cancellation_at"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

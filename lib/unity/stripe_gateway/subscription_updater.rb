@@ -41,7 +41,11 @@ module Unity
       end
 
       def update_local_subscription
-        subscription.update!(subscription_plan: subscription_plan)
+        subscription.update!(
+          cancellation_date: nil,
+          marked_for_cancellation_at: nil,
+          subscription_plan: subscription_plan,
+        )
       end
 
       def subscription_plan

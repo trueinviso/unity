@@ -6,6 +6,7 @@ module Unity
       class NullCustomerGatewayIdError < StandardError; end
       class NullPlanIdError < StandardError; end
       class NullSourceError < StandardError; end
+      class SubscriptionCancelError < StandardError; end
       class SubscriptionCreateError < StandardError; end
       class SubscriptionUpdateError < StandardError; end
     end
