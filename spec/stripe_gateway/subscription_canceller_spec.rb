@@ -6,8 +6,8 @@ module Unity
       let(:user) { create(:user) }
       let(:subscription) { create(:unity_subscription, user: user) }
 
-      before { ::Timecop.freeze(Time.now) }
-      after { ::Timecop.return }
+      before { Timecop.freeze(Time.now) }
+      after { Timecop.return }
 
       describe ".call!" do
         it "cancels subscription" do

@@ -10,5 +10,11 @@ FactoryGirl.define do
       gateway_id "premium_monthly_subscription"
       group_enrollment_add_on_price 10.00
     end
+
+    factory :basic_monthly_plan do
+      name "Basic Plan"
+      gateway_id "basic_monthly_subscription"
+      group_enrollment_add_on_price 5.00
+    end
   end
 end

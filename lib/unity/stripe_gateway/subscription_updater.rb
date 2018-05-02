@@ -9,15 +9,15 @@ module Unity
       end
 
       def self.call!(subscription, params)
-        new(subscription, params).create
+        new(subscription, params).update
       end
 
-      def create
+      def update
         validate_arguments!
         result = update_stripe_subscription
         result = Result.new(result)
         raise Errors::SubscriptionUpdateError unless result.success?
-        update_local_subscription
+        update_local_subscription(result.result)
         result
       end
 
@@ -40,10 +40,12 @@ module Unity
         gateway_subscription.save
       end
 
-      def update_local_subscription
+      def update_local_subscription(result)
         subscription.update!(
           cancellation_date: nil,
+          gateway_type: :stripe,
           marked_for_cancellation_at: nil,
+          gateway_status: result.status,
           subscription_plan: subscription_plan,
         )
       end
@@ -55,7 +57,7 @@ module Unity
       end
 
       def validate_arguments!
-        raise Errors::NullPlanIdError unless params.fetch(:plan_id).present?
+        raise Errors::NullPlanIdError unless params[:plan_id].present?
       end
     end
   end

@@ -8,5 +8,12 @@ FactoryGirl.define do
           .build(:gateway_customer, user: user)
       end
     end
+
+    trait :with_payment_method do
+      after(:build) do |user|
+        user.payment_method ||= FactoryGirl
+          .build(:unity_payment_method, user: user)
+      end
+    end
   end
 end
