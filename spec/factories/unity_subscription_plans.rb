@@ -15,6 +15,13 @@ FactoryGirl.define do
       name "Basic Plan"
       gateway_id "basic_monthly_subscription"
       group_enrollment_add_on_price 5.00
+      price "9.99"
+    end
+
+    factory :free_plan do
+      name "Free Plan"
+      gateway_id "free_plan"
+      price "0"
     end
   end
 end

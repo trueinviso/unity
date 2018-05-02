@@ -1,7 +1,7 @@
 module Unity
   class SubscriptionPlan < ApplicationRecord
     def free?
-      gateway_name == "free_plan"
+      gateway_id == "free_plan"
     end
 
     def display_name

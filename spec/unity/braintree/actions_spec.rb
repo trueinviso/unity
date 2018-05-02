@@ -4,7 +4,7 @@ module Unity
   module BraintreeGateway
     RSpec.describe Actions do
       before { configure_braintree }
-      let(:user) { create_user }
+      let(:user) { create(:user) }
       let(:subscription) { create(:unity_subscription, user: user) }
       let!(:plan) { create(:premium_monthly_plan) }
 
