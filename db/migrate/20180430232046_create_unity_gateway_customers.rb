@@ -1,4 +1,4 @@
-class CreateUnityGatewayCustomers < ActiveRecord::Migration[5.2]
+class CreateUnityGatewayCustomers < ActiveRecord::Migration[5.1]
   def change
     create_table :unity_gateway_customers do |t|
       t.string :gateway_id
