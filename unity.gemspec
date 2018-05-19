@@ -15,7 +15,6 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency "braintree", "~> 2.88"
   s.add_runtime_dependency "stripe", "~> 3.13"
-  s.add_dependency "rails", "~> 5.2.0"
   s.add_dependency "haml", "~> 5.0"
   s.add_dependency "sass-rails"
 
