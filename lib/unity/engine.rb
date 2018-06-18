@@ -14,5 +14,9 @@ module Unity
         end
       end
     end
+
+    initializer "unity.assets.precompile" do |app|
+      app.config.assets.precompile += %w( application.js application.css )
+    end
   end
 end

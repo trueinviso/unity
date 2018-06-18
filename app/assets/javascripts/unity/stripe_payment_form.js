@@ -16,6 +16,7 @@ function stripe_dropin_setup(token) {
   var style = {
     base: {
       color: '#32325d',
+      padding: '10px',
       lineHeight: '18px',
       fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
       fontSmoothing: 'antialiased',

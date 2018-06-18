@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dummy</title>
+    
+
+    <link rel="stylesheet" media="all" href="/assets/application-af04b226fd7202dfc532ce7aedb95a0128277937e90d3b3a3d35e1cce9e16886.css" />
+    <script src="/assets/application-4406808a5cfbb68313b7f59fbd71c7d052938f40b6c8e2621e461efd30b50fc6.js"></script>
+  </head>
+
+  <body>
+    <div class='align-center forms'>
+<div class='column small-12 medium-7'>
+<div class='secondary-heading'>
+Payment information
+</div>
+<form id="braintree-payment-form" data-validate="data-validate" no-validate="no-validate" action="/subscription" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="_method" value="create" /><input type="hidden" name="authenticity_token" id="authenticity_token" value="VCBGZDxaXYxka6CR+XO2K7lMq8mkiD7JnAnfXsoNhovFkq11fx79v9kwwXgfw60EScecxStUN392XTPBqyZyaQ==" />
+<div class='secondary-heading'>
+Plan Options
+</div>
+
+<input type="hidden" name="gateway_type" id="gateway_type" value="stripe" />
+<input type="hidden" name="payment_method_nonce" id="payment_method_nonce" />
+<div id='card-errors'></div>
+<div id='card-element'></div>
+<script src='https://js.stripe.com/v3/'></script>
+<script>
+  stripe_dropin_setup("pk_test_123")
+</script>
+
+<div class='submit-field'>
+<input type="submit" name="commit" value="Get started" data-disable-with="Please wait..." />
+</div>
+</form></div>
+</div>
+
+  </body>
+</html>
