@@ -9,5 +9,6 @@ module Unity
     autoload :SubscriptionCanceller,"unity/stripe_gateway/subscription_canceller"
     autoload :SubscriptionCreator,"unity/stripe_gateway/subscription_creator"
     autoload :SubscriptionUpdater,"unity/stripe_gateway/subscription_updater"
+    autoload :TrialSubscription,"unity/stripe_gateway/trial_subscription"
   end
 end
