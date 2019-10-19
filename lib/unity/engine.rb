@@ -11,6 +11,12 @@ module Unity
       Dir.glob(Rails.root + "app/decorators/**/*_decorator*.rb").each do |c|
         require_dependency(c)
       end
+
+      Dir.glob(Rails.root + "app/services/unity/overrides/**/*_override*.rb").each do |c|
+        require_dependency(c)
+      end
+
+      Unity::ApplicationController.helper Rails.application.helpers
     end
 
     initializer :append_migrations do |app|
