@@ -35,5 +35,10 @@ module Unity
       return true unless trial_ends_at.present?
       trial_ends_at < Time.current
     end
+
+    def awaiting_cancellation?
+      active? &&
+        cancellation_date > Time.current
+    end
   end
 end
